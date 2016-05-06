@@ -3,11 +3,11 @@ package core
 import (
 	"bufio"
 	"github.com/shakdwipeea/crudgenerator/cli"
-	"log"
 	"os"
 	"strings"
 )
 
+//todo what if embedded
 //ModelRepresentation Representation of found Model
 type ModelRepresentation struct {
 	ModelName string
@@ -39,7 +39,7 @@ func findModelName(mod *ModelRepresentation, data string) bool {
 
 }
 
-func findKeyName(mod *ModelRepresentation, line string) bool {
+func findKeyName(mod *ModelRepresentation, line string) (finish bool) {
 	chunk := strings.Split(line, " ")
 
 	//keyName has the first letter capital
@@ -54,7 +54,7 @@ func findKeyName(mod *ModelRepresentation, line string) bool {
 
 }
 
-func generateModelRep(filepath *string) (*[]ModelRepresentation, error) {
+func generateModelRep(filepath *string) ([]ModelRepresentation, error) {
 	var models []ModelRepresentation
 	state := FINDMODEL
 	var tmpModel ModelRepresentation
@@ -87,17 +87,19 @@ func generateModelRep(filepath *string) (*[]ModelRepresentation, error) {
 		cli.ErrLog(err.Error())
 	}
 
-	return &models, nil
+	return models, nil
 }
 
 //ParseFile parse the file and create a Representation that can be used by Writer
-func ParseFile(filepath *string) {
+func (r *GolangReader) ParseFile(filepath *string) ([]ModelRepresentation, error){
 	modRep, err := generateModelRep(filepath)
 	if err != nil {
 		cli.ErrLog(err.Error())
 	}
 
-	for _, v := range *modRep {
+	for _, v := range modRep {
 		cli.Log("Model found ", v.ModelName)
 	}
+
+	return modRep, err
 }

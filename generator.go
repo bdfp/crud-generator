@@ -75,7 +75,7 @@ func main() {
 	}
 
 	for _, v := range *filePaths {
-		core.ParseFile(&v)
+		reader.ParseFile(&v)
 	}
 
 }
