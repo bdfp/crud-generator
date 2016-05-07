@@ -6,7 +6,10 @@ import (
 )
 
 //GolangReader Reader for Golang
-type GolangReader struct{}
+type GolangReader struct{
+	ProjectDir string
+	ProjectName string
+}
 
 //ReadDir get all filenames of a directory
 func (r *GolangReader) ReadDir(dirName *string) (*[]string, error) {

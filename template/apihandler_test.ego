@@ -1,0 +1,22 @@
+package server
+
+import (
+	"github.com/shakdwipeea/$ProjName$/service"
+	"github.com/julienschmidt/httprouter"
+	"net/http"
+)
+
+//handleGetAllBusiness GET /Business Api handler to retreive all Business
+func (e *server.Env) handleGetAllBusiness(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	BusinessArr, err := service.GetAllBusiness
+	if err != nil {
+		SendErrorResponse(w, err.Error())
+		return
+	}
+
+	SendResponse(w, domain.GetAllBusinessHTTPResponse{
+		Err: false,
+		Msg: "Business retreived",
+		Business: businessArr,
+	})
+}

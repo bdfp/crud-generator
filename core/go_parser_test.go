@@ -33,12 +33,12 @@ func TestParseFile(t *testing.T) {
 		t.Error("All models not found")
 	}
 
-	if modRep[0].ModelName != "TestModel" &&
+	if modRep[0].Name != "TestModel" &&
 	reflect.DeepEqual(modRep[0].Keys, []string{"ID", "Name", "Feature"}) {
 		t.Error("First model identified incorrectly")
 	}
 
-	if modRep[1].ModelName != "TestSecondModel" &&
+	if modRep[1].Name != "TestSecondModel" &&
 	reflect.DeepEqual(modRep[1].Keys, []string{"ID", "Status"}) {
 		t.Error("Second model identified incorrectly")
 	}

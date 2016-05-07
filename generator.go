@@ -6,6 +6,7 @@ import (
 	"github.com/shakdwipeea/crudgenerator/core"
 	"log"
 	"os"
+	"strings"
 )
 
 // OUTPUT
@@ -68,7 +69,13 @@ func main() {
 
 	cli.Log("Reading Models from ", wModelDir)
 
-	reader := &core.GolangReader{}
+	c := strings.Split(projectDir, "/")
+	projName := c[len(c) - 1]
+
+	reader := &core.GolangReader{
+		ProjectDir: cwd + "/" + projectDir,
+		ProjectName: projName,
+	}
 	filePaths, err := reader.ReadDir(&wModelDir)
 	if err != nil {
 		panic("Could not read models " + err.Error())
@@ -76,6 +83,7 @@ func main() {
 
 	for _, v := range *filePaths {
 		reader.ParseFile(&v)
+		reader.WriteFiles(&v)
 	}
 
 }

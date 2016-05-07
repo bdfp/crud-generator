@@ -1,0 +1,22 @@
+package server
+
+import (
+	"github.com/shakdwipeea/{{.ProjName}}/server" //todo fix this
+	"github.com/julienschmidt/httprouter"
+	"net/http"
+)
+
+//handleGetAll{{.ModelName}} GET /{{.ModelName}} Api handler to retreive all {{.ModelName}}
+func (e *server.Env) handleGetAll{{.ModelName}}(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	{{.ModelName}}Arr, err := domain.GetAll{{.ModelName}}
+	if err != nil {
+		SendErrorResponse(w, err.Error())
+		return
+	}
+
+	SendResponse(w, domain.GetAll{{.ModelName}}HTTPResponse{
+		Err: false,
+		Msg: "Business retreived",
+		Business: businessArr,
+	})
+}

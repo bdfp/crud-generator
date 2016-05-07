@@ -10,8 +10,8 @@ import (
 //todo what if embedded
 //ModelRepresentation Representation of found Model
 type ModelRepresentation struct {
-	ModelName string
-	Keys      []string
+	Name string
+	Keys []string
 }
 
 const (
@@ -30,7 +30,7 @@ func findModelName(mod *ModelRepresentation, data string) bool {
 
 	for k, v := range chunk {
 		if v == ModelType {
-			mod.ModelName = chunk[k-1]
+			mod.Name = chunk[k-1]
 			return true
 		}
 	}
@@ -98,7 +98,7 @@ func (r *GolangReader) ParseFile(filepath *string) ([]ModelRepresentation, error
 	}
 
 	for _, v := range modRep {
-		cli.Log("Model found ", v.ModelName)
+		cli.Log("Model found ", v.Name)
 	}
 
 	return modRep, err

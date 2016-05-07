@@ -1,0 +1,43 @@
+package service
+
+import (
+	"database/sql"
+	"log"
+)
+
+type {{.ModelName}} struct {
+	Err bool `json:"err"`
+	Msg string `json:"msg"`
+	{{.ModelName}} []{{.ModelName}} `json:"{{.modelName}}"`
+}
+
+func GetAll{{.ModelName}}(db *sql.DB) ([]{{.ModelName}}, error) {
+	var {{.modelName}}Arr []$ModelName
+	rows, err := db.Query("SELECT * FROM {{.modelName}}")
+	if err != nil {
+		return {{.modelName}}Arr, err
+	}
+
+	err = readAll{{.ModelName}}Rows(rows, &{{.modelName}}Arr)
+	return {{.modelName}}Arr, err
+}
+
+func readAll{{.ModelName}}Rows(rows *sql.Rows,b *[]{{.ModelName}}) error {
+	var err error
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var {{.modelName}} {{.ModelName}}
+
+		err = rows.Scan({{range .Keys}} &{{.modelName}}.{{.}} {{end}})
+		if err != nil {
+			log.Println("Error Occured while Reading row")
+		} else {
+			*b = append(*b, {{.modelName}})
+		}
+	}
+
+	rows.Close()
+	return rows.Err()
+}

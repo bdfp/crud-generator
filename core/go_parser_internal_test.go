@@ -5,7 +5,7 @@ import (
 )
 
 func TestFindModelName(t *testing.T) {
-	modExpRep := &ModelRepresentation{ModelName: "Testing"}
+	modExpRep := &ModelRepresentation{Name: "Testing"}
 
 	var modRep ModelRepresentation
 
@@ -14,8 +14,8 @@ func TestFindModelName(t *testing.T) {
 		t.Error("Could not find model")
 	}
 
-	if modExpRep.ModelName != modRep.ModelName {
-		t.Error("Incorrect ModelName extract", modExpRep.ModelName, modRep.ModelName)
+	if modExpRep.Name != modRep.Name {
+		t.Error("Incorrect ModelName extract", modExpRep.Name, modRep.Name)
 	}
 
 	line = "package core"
@@ -26,7 +26,7 @@ func TestFindModelName(t *testing.T) {
 
 func TestFindKeyName(t *testing.T) {
 	modExpRep := &ModelRepresentation{
-		ModelName: "Testing",
+		Name: "Testing",
 		Keys: []string{"ID"},
 	}
 
@@ -38,7 +38,7 @@ func TestFindKeyName(t *testing.T) {
 	}
 
 	if modExpRep.Keys[0] != modRep.Keys[0] {
-		t.Error("Incorrect ModelName extract", modExpRep.ModelName, modRep.ModelName)
+		t.Error("Incorrect ModelName extract", modExpRep.Name, modRep.Name)
 	}
 
 	line = "}"
